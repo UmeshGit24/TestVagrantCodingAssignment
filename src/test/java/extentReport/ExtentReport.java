@@ -3,10 +3,10 @@ package extentReport;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeMethod;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class ExtentReport {
      **/
 
     ExtentReports extentReports;
-    ExtentTest extentTest;
+    public static ExtentTest extentTest;
 
     /*
     Creating Extent Report  using extentSparkReporter Class
@@ -46,16 +46,18 @@ public class ExtentReport {
 
     }
 
+    public void loggingInReport (Status status, Markup markup){
+        extentTest.log (status,markup);
+
+    }
+
     public void flushReport () {
         extentReports.flush ();
 
     }
 
 
-    public void loggingInReport(Status status,String message){
-        extentTest.log (status,message);
-        Reporter.log ( message );
-    }
+
 
 
 }

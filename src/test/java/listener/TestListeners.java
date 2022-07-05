@@ -22,20 +22,17 @@ public class TestListeners implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult result){
-
-        System.out.println("Test started"+result.getName());
+        extentTest=extentReport.createTest (result);
+        System.out.println("Test started : "+result.getName());
     }
     @Override
     public void onTestSuccess(ITestResult result){
-        extentTest=extentReport.createTest(result);
         extentTest.log(Status.PASS,"Classname"+" "+result.getTestClass());
-        extentTest.log(Status.PASS,MarkupHelper.createLabel("TestCases SucessFully Passes"+" "+result.getName(),ExtentColor.GREEN));
-
+        extentTest.log(Status.PASS,MarkupHelper.createLabel("TestCases SucessFully Passes :"+" "+result.getName(),ExtentColor.GREEN));
 
     }
     @Override
     public void onTestFailure(ITestResult result){
-        extentTest=extentReport.createTest(result);
         extentTest.log(Status.FAIL,"Classname:"+" "+result.getTestClass());
         extentTest.log(Status.FAIL, MarkupHelper.createLabel("Failed TestCase Name is "+" "+result.getName(), ExtentColor.RED));
         Reporter.log("Failed Test Report",true);
@@ -45,7 +42,6 @@ public class TestListeners implements ITestListener {
     }
     @Override
     public void onTestSkipped(ITestResult result){
-        extentTest=extentReport.createTest(result);
         extentTest.log(Status.SKIP,"Classname:"+" "+result.getTestClass());
         extentTest.log(Status.SKIP,"TestCases Skip"+" "+result.getName());
 

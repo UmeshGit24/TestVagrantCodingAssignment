@@ -2,6 +2,8 @@ package dataValidation;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import extentReport.ExtentReport;
 import org.json.simple.JSONArray;
 import utility.ReadJsonData;
@@ -50,10 +52,10 @@ public class DataValidation {
 
         int foriegnPlayerCountInTeam = countForiegnPlayerInTeam (playersList);
         if ( foriegnPlayerCountInTeam <= 4 ) {
-            extentReport.loggingInReport ( Status.PASS,"Maximum four Foreign player are in team" );
+            extentReport.loggingInReport ( Status.PASS, MarkupHelper.createLabel ( "Maximum four Foreign player are in team" ,ExtentColor.GREEN));
             return true;
         } else {
-            extentReport.loggingInReport ( Status.FAIL,"More than four Foreign player are in team" );
+            extentReport.loggingInReport ( Status.FAIL,MarkupHelper.createLabel (  "More than four Foreign player are in team",ExtentColor.RED ));
             return false;
         }
 
@@ -63,10 +65,10 @@ public class DataValidation {
     public boolean verifyAtmostOneWicketKeeperPresentInTeam () {
         int wicketKeeperCountInTeam = countWicketKeeperInTeam (playersList);
         if ( wicketKeeperCountInTeam >= 1 ) {
-            extentReport.loggingInReport ( Status.PASS,"Wicket Keeper is present in team" );
+            extentReport.loggingInReport ( Status.PASS,MarkupHelper.createLabel ("Wicket Keeper is present in team",ExtentColor.GREEN ));
             return true;
         } else {
-            extentReport.loggingInReport ( Status.FAIL,"No Wicket keeper in team" );
+            extentReport.loggingInReport ( Status.FAIL,MarkupHelper.createLabel ("No Wicket keeper in team" ,ExtentColor.RED));
             return false;
         }
 
