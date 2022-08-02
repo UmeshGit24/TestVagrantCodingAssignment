@@ -5,6 +5,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import extentReport.ExtentReport;
+import extentReport.FrameworkLogger;
 import org.json.simple.JSONArray;
 import utility.ReadJsonData;
 
@@ -15,7 +16,7 @@ public class DataValidation {
 
     private ReadJsonData readJsonData = new ReadJsonData ();
     private JSONArray playersList = readJsonData.getJsonArray ();
-    private  ExtentReport extentReport=new ExtentReport ();
+
 
 
     private int countForiegnPlayerInTeam (JSONArray playersList) {
@@ -49,13 +50,14 @@ public class DataValidation {
 
 
     public boolean verifyMaximumFourForiegnPlayerPresentInTeam () {
-
         int foriegnPlayerCountInTeam = countForiegnPlayerInTeam (playersList);
+
         if ( foriegnPlayerCountInTeam <= 4 ) {
-            extentReport.loggingInReport ( Status.PASS, MarkupHelper.createLabel ( "Maximum four Foreign player are in team" ,ExtentColor.GREEN));
+            FrameworkLogger.log ( FrameworkLogger.PASS, "Maximum four Foreign player are in team");
             return true;
-        } else {
-            extentReport.loggingInReport ( Status.FAIL,MarkupHelper.createLabel (  "More than four Foreign player are in team",ExtentColor.RED ));
+        }
+        else {
+            FrameworkLogger.log ( FrameworkLogger.FAIL,"More than four Foreign player are in team");
             return false;
         }
 
@@ -64,11 +66,13 @@ public class DataValidation {
 
     public boolean verifyAtmostOneWicketKeeperPresentInTeam () {
         int wicketKeeperCountInTeam = countWicketKeeperInTeam (playersList);
+
         if ( wicketKeeperCountInTeam >= 1 ) {
-            extentReport.loggingInReport ( Status.PASS,MarkupHelper.createLabel ("Wicket Keeper is present in team",ExtentColor.GREEN ));
+            FrameworkLogger.log ( FrameworkLogger.PASS,"Wicket Keeper is present in team");
             return true;
-        } else {
-            extentReport.loggingInReport ( Status.FAIL,MarkupHelper.createLabel ("No Wicket keeper in team" ,ExtentColor.RED));
+        }
+        else {
+            FrameworkLogger.log ( FrameworkLogger.FAIL,"No Wicket keeper in team" );
             return false;
         }
 

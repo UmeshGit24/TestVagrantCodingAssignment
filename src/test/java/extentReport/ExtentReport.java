@@ -5,6 +5,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import constant.FrameworkConstant;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
@@ -17,20 +18,24 @@ public class ExtentReport {
      * Created By @Umesh Joshi
      **/
 
-    ExtentReports extentReports;
+    static ExtentReports extentReports;
     public static ExtentTest extentTest;
 
+    private ExtentReport(){
+
+
+    }
     /*
     Creating Extent Report  using extentSparkReporter Class
     Extent Report theme,format is define in ExtentReport.xml and here loading the Xml config
 
      */
-    public ExtentReport () {
+    public static void init () {
         extentReports = new ExtentReports ();
-        ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter ( System.getProperty ( "user.dir" ) + ".\\ExtentReport" );
+        ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter ( FrameworkConstant.getExtentReportFilePath () );
         extentReports.attachReporter ( extentSparkReporter );
         try {
-            extentSparkReporter.loadXMLConfig ( "ExtentReport.xml" );
+            extentSparkReporter.loadXMLConfig ( FrameworkConstant.getExtentReportFormatConfigFilePath ());
         } catch (IOException e) {
             e.printStackTrace ();
         }
@@ -40,7 +45,7 @@ public class ExtentReport {
     /**
      * Creates a test in Extent Report
      */
-    public ExtentTest createTest (ITestResult result) {
+    public static ExtentTest createTest (ITestResult result) {
         extentTest = extentReports.createTest ( result.getName () );
         return extentTest;
 
@@ -51,8 +56,14 @@ public class ExtentReport {
 
     }
 
-    public void flushReport () {
+    public static void flushReport () {
         extentReports.flush ();
+
+    }
+
+    public static ExtentTest getExtentTest(){
+       return extentTest;
+
 
     }
 
